@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives, send_mail
+from decouple import config
 from .forms import SignUpForm, BookingForm
 from .models import NewsletterSub
 import requests
@@ -144,7 +145,7 @@ def booking(request):
                 "location": form.cleaned_data["location"],
             }
             # Define the Zapier Webhook URL
-            zapier_webhook_url = "https://hooks.zapier.com/hooks/catch/15575017/3fzcqmi/"
+            zapier_webhook_url = config("ZAPIER_WEB_HOOK_URL")
 
             # Make the POST request
             response = requests.post(zapier_webhook_url, json=data)
