@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+New Page - Web App
+{% endblock %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Register</h2>
+          <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Register</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- End Breadcrumbs -->
+
+    <!-- ======= Content Here ======= -->
+    <section>
+        {% if user.is_authenticated %}
+
+        <div class="container">
+            <h2 class="text-center">You are already registered.</h2>
+            <p class="text-center">Return to the <a href="{% url 'home' %}">home page</a>.</p>
+        </div>
+
+        {% else %}
+
+        <div class="container">
+            <div class="col-md-6 offset-md-3">
+                <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Your Form Has Errors
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                {{ form.as_p }}
+<!--            <p class="ft-6 fw-lighter">Fields marked with * are required.</p>-->
+            <button type="submit" class="btn btn-secondary">Register</button>
+        </form>
+            </div>
+        </div>
+
+        {% endif %}
+    </section>
+
+</main>
+
+{% endblock %}
