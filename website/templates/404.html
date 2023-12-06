@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+New Page - Web App
+{% endblock %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Page Not Found</h2>
+          <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Not Found</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- End Breadcrumbs -->
+
+    <!-- ======= Content Here ======= -->
+    <section>
+        <div class="container">
+            <h1>Yeah A Page</h1>
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
