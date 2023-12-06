@@ -82,22 +82,38 @@ def pricing(request):
 
 def contact(request):
     if request.method == "POST":
+        data = {
+            "name": request.POST["name"],
+            "email": request.POST["email"],
+            "subject": request.POST["subject"],
+            "message": request.POST["message"],
+        }
         name = request.POST["name"]
-        email = request.POST["email"]
-        subject = request.POST["subject"]
-        message = request.POST["message"]
+        # email = request.POST["email"]
+        # subject = request.POST["subject"]
+        # message = request.POST["message"]
 
         # Send Email
-        send_mail(
-            subject=f"{name} - {subject}",
-            message=f"From: {email}\n\n{message}",
-            from_email=email,
-            recipient_list=["alex.termure@yahoo.com"]
-        )
+        # send_mail(
+        #     subject=f"{name} - {subject}",
+        #     message=f"From: {email}\n\n{message}",
+        #     from_email=email,
+        #     recipient_list=["alex.termure@yahoo.com"]
+        # )
+        zapier_email_webhook = config("ZAPIER_EMAIL_WEB_HOOK")
 
-        return render(request, "contact.html", {
-            "name": name,
-        })
+        response = requests.post(zapier_email_webhook, json=data)
+        if response.status_code == 200:
+            print(JsonResponse({'success': True}))
+            return render(request, "contact.html", {
+                "name": name,
+            })
+        else:
+            error_message = "There was a problem with the E-Mail API!"
+            print(JsonResponse({'success': False, 'error_message': 'Failed to trigger Zapier'}))
+            return render(request, "contact.html", {
+                "name": error_message,
+            })
     else:
         return render(request, "contact.html", {})
 
