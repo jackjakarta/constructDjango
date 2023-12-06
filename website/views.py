@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives, send_mail
-from .forms import SignUpForm
+from .forms import SignUpForm, BookingForm
 from .models import NewsletterSub
+import requests
 
 
 def home(request):
@@ -125,3 +127,36 @@ def send_newsletter(request):
     else:
         messages.success(request, "You don't have the permissions to access this feature!")
         return redirect("home")
+
+
+def booking(request):
+    if request.method == "GET":
+        form = BookingForm()
+    else:
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            # Define the data you want to send in the POST request (if any)
+            data = {
+                "name": form.cleaned_data["name"],
+                "email": form.cleaned_data["email"],
+                "date": form.cleaned_data["date"],
+                "time": form.cleaned_data["time"],
+                "location": form.cleaned_data["location"],
+            }
+            # Define the Zapier Webhook URL
+            zapier_webhook_url = "https://hooks.zapier.com/hooks/catch/15575017/3fzcqmi/"
+
+            # Make the POST request
+            response = requests.post(zapier_webhook_url, json=data)
+
+            if response.status_code == 200:
+                # html_message = "You're booking request has sent successfully!"
+                print(JsonResponse({'success': True}))
+                return redirect("home")
+            else:
+                print(JsonResponse({'success': False, 'error_message': 'Failed to trigger Zapier'}))
+                return redirect("booking")
+
+    return render(request, "booking.html", {
+        "form": form
+    })

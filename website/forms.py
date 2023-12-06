@@ -41,3 +41,23 @@ class SignUpForm(UserCreationForm):
         self.fields[
             'password2'].help_text = ('<span class="form-text text-muted"><small>Enter the same password as before, '
                                       'for verification.</small></span>')
+
+
+class BookingForm(forms.Form):
+    name = forms.CharField(max_length=100,
+                           widget=forms.TextInput(attrs={'class': 'php-email-form form-control', 'placeholder': 'Your Name'}),
+                           required=True,
+                           label="")
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}),
+                             required=True,
+                             label="")
+    date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date'}),
+                           required=True,
+                           label="")
+    time = forms.CharField(max_length=10,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Time'}),
+                           label="")
+    location = forms.CharField(max_length=50,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'}),
+                               required=True,
+                               label="")
