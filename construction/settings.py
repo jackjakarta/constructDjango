@@ -30,7 +30,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['www.giusi.cloud']
+ALLOWED_HOSTS = ['stark-brook-9iuxxyo48nndsamqbcc4y8lp.herokudns.com', 'giusi.cloud']
 
 
 # Application definition
