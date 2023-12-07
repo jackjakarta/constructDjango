@@ -30,12 +30,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = False
 
 # ALLOWED_HOSTS = []
-
-HEROKU_APP_NAME = config('HEROKU_APP_NAME')
-if HEROKU_APP_NAME:
-    ALLOWED_HOSTS = [f'{HEROKU_APP_NAME}.herokuapp.com', 'www.giusi.cloud']
-else:
-    ALLOWED_HOSTS = ['www.giusi.cloud']
+ALLOWED_HOSTS = ['www.giusi.cloud']
 
 
 # Application definition
