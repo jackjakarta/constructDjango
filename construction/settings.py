@@ -18,11 +18,10 @@ SECRET_KEY = os.environ.get(
     default=secrets.token_urlsafe(nbytes=64),
 )
 
-# IS_HEROKU_APP = "DYNO" in config and not "CI" in config
-IS_HEROKU_APP = config('DYNO')
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 if not IS_HEROKU_APP:
-    DEBUG = True
+    DEBUG = config('DEBUG')
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
