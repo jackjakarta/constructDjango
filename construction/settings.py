@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get(
     default=secrets.token_urlsafe(nbytes=64),
 )
 
-IS_HEROKU_APP = os.environ.get('DYNO')
+IS_HEROKU_APP = "DYNO" in os.environ and "CI" not in os.environ
 
 if not IS_HEROKU_APP:
     DEBUG = config('DEBUG')
@@ -130,7 +130,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'mujex')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
