@@ -176,4 +176,4 @@ CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
