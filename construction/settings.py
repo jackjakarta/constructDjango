@@ -27,10 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['stark-brook-9iuxxyo48nndsamqbcc4y8lp.herokudns.com', 'giusi.cloud']
+ALLOWED_HOSTS = []
 
 
 # Application definition
