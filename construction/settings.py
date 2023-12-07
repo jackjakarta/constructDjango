@@ -27,9 +27,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+
+HEROKU_APP_NAME = config('HEROKU_APP_NAME')
+if HEROKU_APP_NAME:
+    ALLOWED_HOSTS = [f'{HEROKU_APP_NAME}.herokuapp.com', 'giusi.cloud', 'www.giusi.cloud']
+else:
+    ALLOWED_HOSTS = ['giusi.cloud']
 
 
 # Application definition

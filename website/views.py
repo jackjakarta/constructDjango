@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.template.loader import get_template
@@ -177,3 +178,11 @@ def booking(request):
     return render(request, "booking.html", {
         "form": form
     })
+
+
+def not_found(request):
+    response = render(request, "404.html", {})
+
+    if not settings.DEBUG:
+        if response.status_code == 404:
+            return response
