@@ -26,16 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
-IS_HEROKU_APP = "DYNO" in os.environ and "CI" not in os.environ
-
 # SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = config('DEBUG')
+DEBUG = config('DEBUG')
 
-if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ["*"]
-else:
-    ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,19 +43,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap5',
-    "whitenoise.runserver_nostatic",
     'website',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'construction.urls'
@@ -141,18 +134,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "static/"
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-STATICFILES_STORAGE = {
-    # Enable WhiteNoise's GZip and Brotli compression of static assets:
-    # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -176,4 +163,4 @@ CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
