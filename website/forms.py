@@ -45,7 +45,7 @@ class SignUpForm(UserCreationForm):
 
 class BookingForm(forms.Form):
     name = forms.CharField(max_length=100,
-                           widget=forms.TextInput(attrs={'class': 'php-email-form form-control', 'placeholder': 'Your Name'}),
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}),
                            required=True,
                            label="")
     email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}),

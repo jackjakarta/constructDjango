@@ -19,6 +19,22 @@ class NewsletterSub(MyModel):
         return self.email
 
 
+class PartnerCompany(MyModel):
+    class Meta:
+        db_table = "partner_companies"
+
+    name = models.CharField('Company Name', max_length=200, null=False)
+    address = models.CharField('Company Address', max_length=250, blank=True)
+    zip_code = models.CharField('Company Zip Code', max_length=250, blank=True)
+    city = models.CharField('Company City', max_length=250, blank=True)
+    website = models.URLField('Company Website', blank=True)
+    email = models.EmailField('Company Email', max_length=150, blank=True)
+    phone = models.CharField('Company Contact', max_length=250, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class FinishedBuilding(MyModel):
     class Meta:
         db_table = "finished_buildings"
@@ -26,6 +42,7 @@ class FinishedBuilding(MyModel):
     name = models.CharField(max_length=200, null=False)
     location = models.CharField(max_length=100, null=False)
     building_type = models.CharField(max_length=100)
+    partner_company = models.ForeignKey(PartnerCompany, blank=True, null=True, on_delete=models.SET_NULL)
     start_date = models.DateField(null=False)
     end_date = models.DateField(null=False)
 
