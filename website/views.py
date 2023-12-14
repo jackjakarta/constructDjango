@@ -181,7 +181,12 @@ def booking(request):
 
 
 def not_found(request):
-    response = render(request, "404.html", {})
+    if request.user.is_authenticated:
+        response = render(request, "404.html", {
+            "name": request.user
+        })
+    else:
+        response = render(request, "404.html", {})
 
     if not settings.DEBUG:
         if response.status_code == 404:

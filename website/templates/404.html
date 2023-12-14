@@ -27,7 +27,7 @@ New Page - Web App
     <section>
         <div class="container text-center">
             <h1>Page not found</h1>
-            <p>The page you are looking for doesn't exit.</p>
+            <p>We are sorry{% if name %}, {{ name }}{% endif %}! The page you are looking for doesn't exit.</p>
             <p>Return to the <a href="{% url 'home' %}">Home Page</a>.</p>
         </div>
     </section>
