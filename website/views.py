@@ -8,6 +8,7 @@ from django.core.mail import EmailMultiAlternatives, send_mail
 from decouple import config
 from .forms import SignUpForm, BookingForm
 from .models import NewsletterSub
+from .utils import send_register_user_email
 import requests
 
 
@@ -48,6 +49,7 @@ def register(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
+            send_register_user_email(user)
             messages.success(request, "You have registered !")
             return redirect("home")
     else:
